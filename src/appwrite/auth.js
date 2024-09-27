@@ -54,6 +54,15 @@ export class AuthService {
             console.log("Appwrite serive :: logout :: error", error);
         }
     }
+    updatename(userid,name){
+        try{
+            this.account.updateName(userid,name)
+        }catch{
+            console.log('Appwrite service::upadteName::error',error);
+            
+        }
+
+    }
 }
 
 const authService = new AuthService();

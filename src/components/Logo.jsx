@@ -2,7 +2,7 @@ import React from 'react'
 
 function Logo() {
   return (
-    <div>
+    <div className='text-white'>
       logo
     </div>
   )

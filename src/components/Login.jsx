@@ -16,8 +16,12 @@ function Login() {
         setError("")
         try {
             const session = await authService.login(data)
+            console.log(data);
+            
             if (session) {
                 const userData = await authService.getCurrentUser()
+                console.log(userData);
+                
                 if(userData) dispatch(authLogin(userData));
                 navigate("/")
             }
@@ -25,14 +29,16 @@ function Login() {
             setError(error.message)
         }
     }
+    
+    
 
   return (
     <div
-    className='flex items-center justify-center w-full'
-    >
-        <div className={`mx-auto w-full max-w-lg bg-gray-100 rounded-xl p-10 border border-black/10`}>
-        <div className="mb-2 flex justify-center">
-                    <span className="inline-block w-full max-w-[100px]">
+    className='flex items-center justify-center h-full relative '>
+        <div className={`mx-auto w-full max-w-lg rounded-xl  pl-9  pr-9 pt-5 border backdrop-blur-3xl border-black/10 relative  `} style={{height:'70%'}}>
+        {/* 7c716f */}
+        <div className=" flex justify-center  relative">
+                    <span className="text-center w-full max-w-[100px]">
                         <Logo width="100%" />
                     </span>
         </div>
@@ -41,16 +47,17 @@ function Login() {
                     Don&apos;t have any account?&nbsp;
                     <Link
                         to="/signup"
-                        className="font-medium text-primary transition-all duration-200 hover:underline"
-                    >
-                        Sign Up
+                        className="font-medium text-primary transition-all duration-200 hover:underline">
+                    Sign Up
                     </Link>
         </p>
-        {error && <p className="text-red-600 mt-8 text-center">{error}</p>}
+        {error && <p className="text-red-600 mt-4 text-center">{error}</p>}
         <form onSubmit={handleSubmit(login)} className='mt-8'>
-            <div className='space-y-5'>
+          
+            <div className='space-y-5 '>
+            
                 <Input
-                label="Email: "
+                label="Email "
                 placeholder="Enter your email"
                 type="email"
                 {...register("email", {
@@ -62,17 +69,17 @@ function Login() {
                 })}
                 />
                 <Input
-                label="Password: "
+                label="Password "
                 type="password"
                 placeholder="Enter your password"
                 {...register("password", {
                     required: true,
                 })}
                 />
-                <Button
+                <div><Button
                 type="submit"
-                className="w-full"
-                >Sign in</Button>
+                className="w-full mt-14"
+                >Sign in</Button></div>
             </div>
         </form>
         </div>

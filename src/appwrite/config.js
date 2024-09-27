@@ -101,7 +101,7 @@ export class Service{
     async uploadFile(file){
         try {
             return await this.bucket.createFile(
-                conf.appwriteBucketId,
+                conf.appwriteBucketId, 
                 ID.unique(),
                 file
             )
@@ -130,6 +130,56 @@ export class Service{
             fileId
         )
     }
+    async createprofiledocument({slug="profilepicture",profileid}){
+        try {
+            return await this.databases.createDocument(
+                conf.appwriteDatabaseId,
+                conf.appwriteProfilecCollectionID,
+                slug,
+                {profileid
+                    
+                }
+            )
+        } catch (error) {
+            console.log("Appwrite serive :: createprofiledocument :: error", error);
+        }
+    }
+    async uploadprofile(file){
+        try {
+            return await this.bucket.createFile(
+                conf.appwriteProfilecBuketID, 
+                ID.unique(),
+                file
+            )
+        } catch (error) {
+            console.log("Appwrite serive :: uploadprofile :: error", error);
+            return false
+        }
+    }
+ 
+    getProfileFilePreview(fileId){
+        return this.bucket.getFilePreview(
+            conf.appwriteProfilecBuketID,
+            fileId
+        )
+    }
+    async getprofilepicture(){
+        try {
+            return await this.databases.listDocuments(
+                conf.appwriteDatabaseId,
+                conf.appwriteProfilecCollectionID,
+                
+                
+
+            )
+        } catch (error) {
+            console.log("Appwrite serive ::  :: error", error);
+            return false
+        }
+    }
+
+
+
 }
 
 

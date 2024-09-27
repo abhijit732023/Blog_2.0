@@ -17,13 +17,19 @@ export default function PostForm({ post }) {
 
     const navigate = useNavigate();
     const userData = useSelector((state) => state.auth.userData);
+    console.log(userData);
+    
 
     const submit = async (data) => {
+        console.log(data);
+        
         if (post) {
             const file = data.image[0] ? await appwriteService.uploadFile(data.image[0]) : null;
-
+            
             if (file) {
                 appwriteService.deleteFile(post.featuredimage);
+                console.log(file,file.$id);
+                
             }
 
             const dbPost = await appwriteService.updatePost(post.$id, {
@@ -36,6 +42,8 @@ export default function PostForm({ post }) {
             }
         } else {
             const file = await appwriteService.uploadFile(data.image[0]);
+            console.log(file);
+            
 
             if (file) {
                 const fileId = file.$id;
@@ -71,52 +79,58 @@ export default function PostForm({ post }) {
     }, [watch, slugTransform, setValue]);
 
     return (
-        <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
-            <div className="w-2/3 px-2">
-                <Input
-                    label="Title :"
-                    placeholder="Title"
-                    className="mb-4"
-                    {...register("title", { required: true })}
-                />
-                <Input
-                    label="Slug :"
-                    placeholder="Slug"
-                    className="mb-4"
-                    {...register("slug", { required: true })}
-                    onInput={(e) => {
-                        setValue("slug", slugTransform(e.currentTarget.value), { shouldValidate: true });
-                    }}
-                />
-                <RTE label="Content :" name="content" control={control} defaultValue={getValues("content")} />
+        <form onSubmit={handleSubmit(submit)} className="flex justify-center h-full">
+            <div className="w-4/5 h-full flex gap-10 justify-center">
+                <div className="relative h-full" style={{ width: '30%' }}>
+                    <Input
+                        label="Title :"
+                        placeholder="Title"
+                        className="mb-4"
+                        {...register("title", { required: true })}
+                    />
+                    <Input
+                        label="Slug :"
+                        placeholder="Slug"
+                        className="mb-4"
+                        {...register("slug", { required: true })}
+                        onChange={(e) => {
+                            setValue("slug", slugTransform(e.currentTarget.value), { shouldValidate: true });
+                        }}
+                    />
+                    <Input
+                        label="Featured Image :"
+                        type="file"
+                        className="mb-4 "
+                        accept="image/png, image/jpg, image/jpeg, image/gif"
+                        {...register("image", { required: !post })}
+                    />
+                    {post && (
+                        <div className="w-full mb-4">
+                            <img
+                                src={appwriteService.getFilePreview(post.featuredimage)}
+                                alt={post.title}
+                                className="rounded-lg"
+                            />
+                        </div>
+                    )}
+                    <Select
+                        options={["active", "inactive"]}
+                        label="Status"
+                        className="mb-4  "
+                        {...register("status", { required: true })}
+                    />
+                   <div>
+                   <Button type="submit" bgColor={post ? "bg-green-500" : undefined} className="w-full mt-16">
+                        {post ? "Update" : "Submit"}
+                    </Button>
+                   </div>
+                </div>
+                <div className=" relative w-3/5"> <RTE label="Content" name="content" control={control} defaultValue={getValues("content")} /></div>
+
             </div>
-            <div className="w-1/3 px-2">
-                <Input
-                    label="Featured Image :"
-                    type="file"
-                    className="mb-4"
-                    accept="image/png, image/jpg, image/jpeg, image/gif"
-                    {...register("image", { required: !post })}
-                />
-                {post && (
-                    <div className="w-full mb-4">
-                        <img
-                            src={appwriteService.getFilePreview(post.featuredimage)}
-                            alt={post.title}
-                            className="rounded-lg"
-                        />
-                    </div>
-                )}
-                <Select
-                    options={["active", "inactive"]}
-                    label="Status"
-                    className="mb-4"
-                    {...register("status", { required: true })}
-                />
-                <Button type="submit" bgColor={post ? "bg-green-500" : undefined} className="w-full">
-                    {post ? "Update" : "Submit"}
-                </Button>
-            </div>
+
+
+
         </form>
     );
 }

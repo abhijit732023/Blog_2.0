@@ -1,0 +1,28 @@
+.hello:hover .hiiii{
+    width: 100%;
+    transition: width 0.7s  ease-in-out ;
+    
+    
+
+}
+
+.hello:hover .hov{
+    position: absolute;
+    background-color: red;
+}
+.hello:hover .text{
+    width: 100%;
+    opacity: 1;
+    transition: width 1s  ease-in-out ;
+    transition: opacity 1s ease-in-out;
+    transition-delay: 1.2s;
+
+   
+}
+
+.hello:hover .para {
+    opacity: 1;
+}
+.hello:hover .head {
+    opacity: 1;
+}

@@ -1,0 +1,28 @@
+lgoin component<img src="books4.jpg" alt="books" className='absolute my-5 object-contain opacity-55 ' />
+postcard   <img src={appwriteService.getFilePreview(featuredimage)} alt={title}
+appp.jsx <div className='absolute object-cover' style={{backgroundColor:'#030d27'}}>
+        <img src="space2.jpg" className='opacity-25 object-cover' />
+      </div>
+
+
+{Appwrite}: we first intialise appwrite and we first created a class authservice and defined async funtion inside it and we can access it using dot function 
+and we have created constructor with some this.client inside constructor when class instance is created function and variables inside  constructor is automactically  initaialized
+Constructor
+
+Initializes a new instance of the Client class from Appwrite.
+Sets the endpoint and project ID for the client using values from the conf module.
+Creates a new instance of the Account class, passing the client instance as a parameter.
+Methods
+
+createAccount
+Creates a new user account with Appwrite using the provided email, password, and name.
+Returns the result of calling the login method with the same credentials if the account creation is successful.
+login
+Creates an email-password session with Appwrite using the provided email and password.
+Returns the result of the session creation.
+getCurrentUser
+Retrieves the current user's information from Appwrite.
+Returns the user data if successful, or null if an error occurs.
+logout
+Deletes all sessions for the current user.
+Logs an error to the console if an error occurs during the logout process.
