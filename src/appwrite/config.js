@@ -130,13 +130,14 @@ export class Service{
             fileId
         )
     }
-    async createprofiledocument({slug="profilepicture",profileid}){
+    async createprofiledocument({profileid,userid}){
         try {
             return await this.databases.createDocument(
                 conf.appwriteDatabaseId,
                 conf.appwriteProfilecCollectionID,
-                slug,
-                {profileid
+                ID.unique(),
+                {profileid,
+                    userid
                     
                 }
             )
@@ -174,6 +175,66 @@ export class Service{
             )
         } catch (error) {
             console.log("Appwrite serive ::  :: error", error);
+            return false
+        }
+    }
+    async updateProfilePicture(slug,{profileid,userid}){
+        try {
+            return await this.databases.updateDocument(
+                conf.appwriteDatabaseId,
+                conf.appwriteProfilecCollectionID,
+                slug,
+                {
+                    profileid,
+                    userid
+                }
+                
+            )
+        } catch (error) {
+            console.log("Appwrite serive :: profilepic :: error", error);
+        }
+    }
+    
+    async commentDocument({userid,comment,postid,username}){
+        try {
+            await this.databases.createDocument(conf.appwriteDatabaseId,conf.appwriteCommentCollectionID,ID.unique(),{userid,comment,postid,username})
+            
+        } catch (error) {
+            console.log('Appwrite::commentDocument::error:',error);
+            
+        }
+    }
+    async getcomments(){
+        try {
+           return await this.databases.listDocuments(conf.appwriteDatabaseId,conf.appwriteCommentCollectionID)
+        } catch (error) {
+            console.log("Appwrite::getcomments::error:",error);
+            
+        }
+    }
+    async deleteprofilepicture(fileId){
+        try {
+            await this.bucket.deleteFile(
+                conf.appwriteProfilecBuketID,
+                fileId
+            )
+            return true
+        } catch (error) {
+            console.log("Appwrite serive :: deleteprofilepicture :: error", error);
+            return false
+        }
+    }
+    async deleteComment(slug){
+        try {
+            await this.databases.deleteDocument(
+                conf.appwriteDatabaseId,
+                conf.appwriteCommentCollectionID,
+                slug
+            
+            )
+            return true
+        } catch (error) {
+            console.log("Appwrite serive :: deletePost :: error", error);
             return false
         }
     }

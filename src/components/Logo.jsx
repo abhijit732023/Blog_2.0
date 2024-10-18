@@ -1,9 +1,10 @@
 import React from 'react'
 
-function Logo() {
+function 
+Logo() {
   return (
     <div className='text-white'>
-      logo
+      <img src="src\log03-removebg-preview.png" alt="" />
     </div>
   )
 }

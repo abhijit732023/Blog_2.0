@@ -23,9 +23,9 @@ function LogoutBtn() {
   return (
     <motion.button
     whileHover={{ scale: 1.05}}
-    whileTap={{ scale: 0.5 }}
+    whileTap={{ scale: 0.8 }}
     whileFocus={{scale: 1.2}}
-    className='inline-bock px-6 py-2 text-white duration-200 hover:bg-blue-100 rounded-full'
+    className={`inline-bock px-6 py-2 bg-green-400  text-black duration-200 hover:bg-green-700 rounded-full`}
     onClick={logoutHandler}
     >Logout</motion.button>
   )

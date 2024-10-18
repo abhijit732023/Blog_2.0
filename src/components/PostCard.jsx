@@ -4,7 +4,6 @@ import {Link, useParams} from 'react-router-dom'
 import "./postcardstyle.css"
 
 import parse from "html-react-parser";
-import { useSelector } from 'react-redux';
 function PostCard({$id, title, featuredimage,content}) {
   // const {slug}=useParams()
   

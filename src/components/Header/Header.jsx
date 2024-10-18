@@ -9,50 +9,53 @@ import authService from '../../appwrite/auth';
 
 function Header() {
   const authStatus = useSelector((state) => state.auth.status);
-  //problem is how we are using use s
+
 
   const navigate = useNavigate();
-  const [nameee, setname] = useState(null);
+  const [nameee, setname] = useState('');
 
   useEffect(() => {
-    authService.getCurrentUser().then(user => {
-      const name = user.name[0]
-      setname(name.toUpperCase())
+    if (authStatus) {
 
+      authService.getCurrentUser().then(
+        user => {
+          if (user.name) {
+            setname(user.name[0].toUpperCase())
+          }
 
+        }
+      )
     }
-    )
-    // if (authStatus && userdataName) {
-    //   // setname(userdataName[0].toUpperCase());
-    // }
-  }, [authStatus,]);
 
+
+
+  }, [setname])
 
 
 
   const navItems = [
     {
-      name: '🅷🅾🅼🅴',
+      name: 'Home',
       slug: "/",
       active: true
     },
     {
-      name: "ℓσgιη",
+      name: 'login',
       slug: "/login",
       active: !authStatus,
     },
     {
-      name: "ѕιgηυρ",
+      name: "sigup",
       slug: "/signup",
       active: !authStatus,
     },
     {
-      name: "🅼🆈🅿🅾🆂🆃",
+      name: 'Mypost',
       slug: "/my-posts",
       active: authStatus,
     },
     {
-      name: "🅰🅳🅳🅿🅾🆂🆃",
+      name: "Addpost",
       slug: "/add-post",
       active: authStatus,
     },
@@ -60,26 +63,42 @@ function Header() {
 
 
   return (
-    <header className='py-2 w-full shadow-xl backdrop-blur  relative flex justify-center items-center' style={{ height: '8%', fontFamily: "Bungee Tint"}}>
+    <header className='py-2 w-full shadow-xl backdrop-blur  relative flex justify-center items-center ' style={{ height: '9%', fontFamily: "Bungee Tint" }}>
       <Container>
         <motion.nav
-          className='flex justify-between m'>
-          <div className='ml-2 flex items-center justify-center'>
-           <Link to={"/profile"}> <motion.div //nameeee initial
-              className='rounded-full size-10  text-black flex justify-center items-center bg-blue-400' >
-              {nameee}
-            </motion.div></Link>
-          </div>
-          <Link to='/'>
-            <Logo width='70px' />
+          className='flex justify-between items-center '>
+          <Link to={"/profile"}>
+            <motion.div
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.8 }}
+              whileFocus={{ scale: 1.2 }}
+              className='ml-2 flex items-center justify-center'>
+
+              {<motion.div //nameeee initial
+                className='rounded-full size-10  text-black flex justify-center items-center ' style={{ backgroundColor: '#f8b195' }} >
+                <i class="fa-solid fa-user"></i>
+              </motion.div>}
+            </motion.div>
           </Link>
-          <ul className='flex mx-2'>
+          <Link to='/'>
+            <div className=' w-80 content-center flex justify-end '>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.5 }}
+                whileFocus={{ scale: 1.2 }}
+                className='right-0 flex justify-center items-center size-32 h-14'>
+                <Logo width='' />
+              </motion.div>
+            </div>
+          </Link>
+          <ul className='flex'>
             {navItems.map((item) =>
               item.active ? (
-                <li key={item.name}>
+                <li key={item.name} onClick={() => navigate(item.slug)}>
                   <motion.button
-                    onClick={() => navigate(item.slug)}
-                    className='inline-bock px-6 py-2 duration-200 hover:bg-blue-100 rounded-full h-auto'
+
+                    
+                    className='inline-bock rel px-6 py-2 mx-1 duration-200 hover:bg-orange-200 rounded-full h-auto'
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.5 }}
                     whileFocus={{ scale: 1.2 }}
@@ -87,11 +106,7 @@ function Header() {
                 </li>
               ) : null
             )}
-            {authStatus && (
-              <li>
-                <LogoutBtn />
-              </li>
-            )}
+
           </ul>
         </motion.nav>
       </Container>
