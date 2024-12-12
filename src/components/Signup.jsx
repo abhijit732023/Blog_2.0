@@ -96,7 +96,7 @@ function Signup() {
             {errors.password && <p className="text-red-600 text-sm">{errors.password.message}</p>}
             <div className='w-full flex justify-end '>
               <button type="button" className="size-7" onClick={() => setShowPassword(!showPassword)}>
-                <img src={showPassword ? "src/components/view.png" : "src/components/hide.png"} alt={showPassword ? "show" : "hide"} />
+                <img src={showPassword ? "public\image\view.png" : "public\image\hide.png"} alt={showPassword ? "show" : "hide"} />
               </button>
             </div>
             <motion.div
