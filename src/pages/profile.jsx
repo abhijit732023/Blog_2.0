@@ -23,11 +23,7 @@ function Profile() {
         setnopost(filteredPosts.length);
       }
     });
-    service.getcomments().then(com=>{
-      if(com){
-        const filteredcom = com.documents.filter(com=>com.userId===user.$id)
-        setnocomment(filteredcom.length)
-  }})
+
 
 
 
@@ -53,6 +49,15 @@ function Profile() {
       }
     };
     fetchUserProfile();
+    service.getcomments().then(com=>{
+      console.log(com);
+      
+      if(com){
+        const filteredcom = com.documents.filter(com=>com.userid===user.$id)
+        setnocomment(filteredcom.length)
+        console.log(filteredcom);
+        
+  }})
   }, []);
 
   const updateName = (name) => {
@@ -97,7 +102,7 @@ function Profile() {
         <div className="bg-white rounded-lg shadow-md flex justify-between p-6" style={{ width: '59%', height: '74%' }}>
           <div className='min-h-full bg-gray-100 shadow-xl rounded-lg' style={{ width: '44%', display: 'flex', flexDirection: "column", justifyContent: 'space-around', alignItems: 'center' }}>
             <div className='bg-gray-500 rounded-md object-contain' style={{ height: "55%", width: "92%" }}>
-              <img className='relative object-cover h-full w-full rounded-md' src={post?.profileid ? service.getProfileFilePreview(post.profileid) : ''} alt='profilepicture' />
+              <img className='relative object-cover h-full w-full rounded-md' src={post&&post.profileid ? service.getProfileFilePreview(post.profileid) : ''} alt='profilepicture' />
             </div>
             <div className='bg-white font-mono p-7 rounded-md flex justify-between gap-1' style={{ height: '40%', width: "92%", flexDirection: 'column', }}>
               <h2 className='text-bold'><b>My profile</b></h2>
@@ -140,7 +145,7 @@ function Profile() {
         <div className="bg-white rounded-lg shadow-md flex justify-between p-6 h-4/5" style={{ width: '64%' }}>
           <div className='min-h-full bg-gray-100 drop-shadow-md' style={{ width: '54%', display: 'flex', flexDirection: "column", justifyContent: 'space-around', alignItems: 'center' }}>
             <div className='bg-white object-contain' style={{ height: "96%", width: "92%" }}>
-              <img className='relative object-cover h-full w-full rounded-md' src={service.getProfileFilePreview(post?.profileid)} alt="Profile" />
+              <img className='relative object-cover h-full w-full rounded-md' src={ service.getProfileFilePreview(post&&post.profileid&&post.profileid)} alt="Profile" />
             </div>
           </div>
           <div className='min-h-full bg-gray-100 drop-shadow-md w-1/2 flex' style={{ height: '90%', width: '45%', flexDirection: "column", justifyContent: "space-around", alignItems: "center" }}>
