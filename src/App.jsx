@@ -20,7 +20,7 @@ function App() {
   return !loading ? (
     <div className='h-screen flex flex-wrap content-between bg-transparent'>
       <div className='w-full absolute h-screen' style={{ backgroundColor: '#5F5044' }}>
-        <img src="public\books4.jpg?v=1" className='h-full w-full object-cover opacity-35' />
+        <img src="src\image\books4.jpg?v=1" className='h-full w-full object-cover opacity-35' />
       </div>
       <div className='w-full h-full block'>
         <Header />
