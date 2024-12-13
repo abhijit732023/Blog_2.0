@@ -1,4 +1,5 @@
 {
+  "homepage": "https://abhi732023.github.io/Blog_2.0",
   "name": "blog-2-0",
   "private": true,
   "version": "0.0.0",
@@ -7,7 +8,9 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy":"npm run build",
+    "deploy": "gh-pages -d build"
   },
   "dependencies": {
     "@fontsource/roboto": "^5.0.14",
